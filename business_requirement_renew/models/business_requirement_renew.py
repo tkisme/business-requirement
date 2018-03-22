@@ -6,7 +6,7 @@
 from odoo import models, api, fields, _
 
 
-class BusinessRequirementVersion(models.Model):
+class BusinessRequirementRenew(models.Model):
     _inherit = "business.requirement"
 
     source_id = fields.Many2one(
@@ -30,7 +30,7 @@ class BusinessRequirementVersion(models.Model):
 
     @api.model
     def _get_states(self):
-        res = super(BusinessRequirementVersion, self)._get_states()
+        res = super(BusinessRequirementRenew, self)._get_states()
         res.append(('renewed', 'Renewed'))
         return res
 
@@ -50,7 +50,7 @@ class BusinessRequirementVersion(models.Model):
                 reviewer_ids=self._context.get('reviewer_ids'),
                 version=self._context.get('version')
             )
-        return super(BusinessRequirementVersion, self).copy(vals)
+        return super(BusinessRequirementRenew, self).copy(vals)
 
     @api.multi
     def renew_br(self):
@@ -123,4 +123,4 @@ class BusinessRequirementVersion(models.Model):
                         msg_followers.append((0, 0, msg_vals))
                 if msg_followers:
                     vals['message_follower_ids'] = msg_followers
-        return super(BusinessRequirementVersion, self).create(vals)
+        return super(BusinessRequirementRenew, self).create(vals)
